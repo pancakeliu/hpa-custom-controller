@@ -27,7 +27,7 @@ type Autoscaler struct {
 var ArrSpec []*k8sv1beta1.K8sScaleSpec
 
 // 防止etcd没有获取到，维护一个map
-var MapSpec map[string]*k8sv1beta1.K8sScaleSpec
+// var MapSpec map[string]*k8sv1beta1.K8sScaleSpec
 
 func NewAutoScaler(config *global_options.AutoScalerConfig) *Autoscaler {
 	//	str1 := make([]string, 3)
@@ -37,7 +37,7 @@ func NewAutoScaler(config *global_options.AutoScalerConfig) *Autoscaler {
 	c.Client = etcd
 	autoscaler := &Autoscaler{EtcdClient: &c}
 	ArrSpec = []*k8sv1beta1.K8sScaleSpec{}
-	MapSpec = make(map[string]*k8sv1beta1.K8sScaleSpec)
+	// MapSpec = make(map[string]*k8sv1beta1.K8sScaleSpec)
 
 	return autoscaler
 }
@@ -77,23 +77,26 @@ func (h *Autoscaler) Informer(autoscaler *auto_scaler.AutoScaler) {
 						key, etcd_err := h.EtcdClient.EtcdGet(string(str1))
 						if etcd_err != nil {
 							// 当获取失败时取上次结果
-							spec_ptr, ok := MapSpec[value+value1]
-							if !ok {
-								break
-							}
-							Spec = *spec_ptr
-						} else {
-							err := json.Unmarshal([]byte(key), &Spec)
-							if err != nil {
-								fmt.Println(err)
-							}
+							// spec_ptr, ok := MapSpec[value+value1]
+							// if !ok {
+							//	break
+							// }
+							// Spec = *spec_ptr
+                            key, etcd_err = h.EtcdClient.EtcdGet(string(str1))
+                            if etcd_err != nil {
+                                break
+                            }
+						}
+						err := json.Unmarshal([]byte(key), &Spec)
+						if err != nil {
+							fmt.Println(err)
 						}
 						// 函数调用
 						// fmt.Println(Spec)
 						ArrSpec = append(ArrSpec, &Spec)
 
 						// 将上次的结果存储至Map集合中
-						MapSpec[value+value1] = &Spec
+						// MapSpec[value+value1] = &Spec
 						//	h.QueueWatch.Push(hr)
 					}
 				}
