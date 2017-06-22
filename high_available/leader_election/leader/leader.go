@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"time"
 
-	election "github.com/lpc-win32/hpa-custom-controller/controller/leader_election/lib"
+	election "github.com/lpc-win32/hpa-custom-controller/high_available/leader_election/lib"
 	"github.com/lpc-win32/hpa-custom-controller/controller/options"
 
 	"github.com/golang/glog"

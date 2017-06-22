@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/lpc-win32/hpa-custom-controller/controller/leader_election/leader"
+	"github.com/lpc-win32/hpa-custom-controller/high_available/leader_election/leader"
 	"github.com/lpc-win32/hpa-custom-controller/controller/options"
 	"os"
 	"time"

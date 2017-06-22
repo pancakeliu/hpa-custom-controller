@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/lpc-win32/hpa-custom-controller/controller/auto_scaler"
-	"github.com/lpc-win32/hpa-custom-controller/controller/leader_election/leader"
+	"github.com/lpc-win32/hpa-custom-controller/high_available/leader_election/leader"
 	controller_options "github.com/lpc-win32/hpa-custom-controller/controller/options"
 	"github.com/lpc-win32/hpa-custom-controller/global_options"
 	"github.com/lpc-win32/hpa-custom-controller/collector/etcd_converge"
