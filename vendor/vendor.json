@@ -1,0 +1,6 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [],
+	"rootPath": "k8s.io/hpa-controller"
+}

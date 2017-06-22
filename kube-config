@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Config
+clusters:
+- name: cluster-lpc
+  cluster:
+    server: https://kubernetes-wx.meizu.com:443
+    certificate-authority: /etc/kubernetes/ssl/ca.pem
+users:
+- name: cluster-lpc
+  user:
+    client-certificate: /etc/kubernetes/ssl/worker-1-worker.pem
+    client-key: /etc/kubernetes/ssl/worker-1-worker-key.pem
+contexts:
+- context:
+    cluster: cluster-lpc
+    user: cluster-lpc
+  name: cluster-lpc
+current-context: cluster-lpc

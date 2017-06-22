@@ -1,0 +1,7 @@
+etcdstring: ['http://127.0.0.1:2391']
+leader_election_name: 'hpa-custom-controller'
+leader_election_namespace: 'default'
+leader_election_ttl: 10s
+leader_election_in_cluster: false
+prometheus_ip_port: '10.3.40.27:9090'
+k8sapi_config_path: '/root/kube-config'
