@@ -94,15 +94,22 @@ func (ac_obj *AutoScaler) ExecAutoScaler(k8sScaleSpecs []*k8s_type.K8sScaleSpec)
 					max_add_replicas = add_replicas
 				}
 				// 缩容期望副本数计算
-				expect_del_replicas := int32(sum_metric_vals/scale_metric_val.MinScaler) + 1
-				if max_del_replicas < expect_del_replicas {
-					max_del_replicas = expect_del_replicas
-				}
+                if scale_metric_val.MinScaler == 0 {
+				    expect_del_replicas := int32(sum_metric_vals/scale_metric_val.MinScaler) + 1
+				    if max_del_replicas < expect_del_replicas {
+					    max_del_replicas = expect_del_replicas
+				    }
+                }
 			}
 			// 不需要扩容则考虑缩容的问题
 			if max_add_replicas == 0 {
 				// 判断时间间隔有无超过规定时间
 				canScaler := false
+
+                // 当计算的max_del_replicas为0不用考虑缩容问题，直接退出当前协程
+                if max_del_replicas == 0 {
+                    return
+                }
 
 				if timestamp, ok := ac_obj.metric_reduce_timestamp[scale.Namespace+scale.Name]; ok {
 					current_timestamp := time.Now().Unix()

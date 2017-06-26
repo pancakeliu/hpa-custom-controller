@@ -2,18 +2,14 @@ package etcd_converge
 
 import (
 	"encoding/json"
-	//"flag"
 	"fmt"
 	"github.com/lpc-win32/hpa-custom-controller/controller/auto_scaler"
-	//	controller_options "hpa-custom-controller/controller/options"
 	"github.com/lpc-win32/hpa-custom-controller/collector/etcd_client"
 	"github.com/lpc-win32/hpa-custom-controller/k8sv1beta1"
 	"github.com/lpc-win32/hpa-custom-controller/global_options"
 
 	"k8s.io/client-go/pkg/util/clock"
 
-	//	"math"
-	//	"net/http"
 	"strings"
 	"time"
 
@@ -30,8 +26,6 @@ var ArrSpec []*k8sv1beta1.K8sScaleSpec
 // var MapSpec map[string]*k8sv1beta1.K8sScaleSpec
 
 func NewAutoScaler(config *global_options.AutoScalerConfig) *Autoscaler {
-	//	str1 := make([]string, 3)
-	//	str1[0] = "http://127.0.0.1:2379"
 	etcd, _ := etcd_client.NewClient(config.Etcdstring)
 	c := etcd_client.EtcdClient{}
 	c.Client = etcd
@@ -59,7 +53,6 @@ func (h *Autoscaler) Run(autoscaler *auto_scaler.AutoScaler, stop <-chan int) {
 }
 
 func (h *Autoscaler) Informer(autoscaler *auto_scaler.AutoScaler) {
-	// TODO
 	ArrSpec = nil
 	Spec := k8sv1beta1.K8sScaleSpec{}
 	namespaces, err := h.EtcdClient.EtcdList("/api/v1/autoscalers")
